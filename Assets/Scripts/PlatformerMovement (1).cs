@@ -1,6 +1,7 @@
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
 
             /////////////// INFORMATION ///////////////
 // This script automatically adds a Rigidbody2D, CapsuleCollider2D and CircleCollider2D component in the inspector.
@@ -13,6 +14,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D), typeof(CircleCollider2D), typeof(CapsuleCollider2D))]
 public class PlatformerMovement : MonoBehaviour
 {
+    public UnityEvent OnJumpEvent;
     [SerializeField] private float maxSpeed = 10f;
     [SerializeField] private float jumpForce = 10f;
     // [SerializeField] private float gravityMultiplier = 1;    //unused
@@ -183,6 +185,8 @@ public class PlatformerMovement : MonoBehaviour
             jumpInput = true;
             jumpReleased = false;
             animator.SetBool("jump", true);
+            OnJumpEvent.Invoke();
+
         }
 
         if (context.canceled && controlEnabled)
