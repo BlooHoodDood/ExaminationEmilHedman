@@ -113,7 +113,8 @@ public class Health : MonoBehaviour
         if (currentHealth <= minHealth)
         {
             OnDie?.Invoke();
-            SceneManager.LoadScene (sceneName:"DeathScene");
+            SceneManager.LoadScene (sceneName:"SampleScene");
+            Debug.Log("FUCKING HELL");
             //Add animation-trigger here
         }
     }
