@@ -1,3 +1,4 @@
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -81,10 +82,21 @@ public class PlatformerMovement : MonoBehaviour
         if (spriteRenderer)
         {
             if (moveInput.x > 0.01f)
-                spriteRenderer.flipX = false;
-            else if (moveInput.x < -0.01f)
+            {
                 spriteRenderer.flipX = true;
+                animator.SetBool("walk", true);
+            }
+            else if (moveInput.x < -0.01f)
+            {
+                spriteRenderer.flipX = false;
+                animator.SetBool("walk", true);
+            }
+            else
+            {
+                animator.SetBool("walk", false);
+            }
         }
+        
     }
 
     private void FixedUpdate()
@@ -102,10 +114,12 @@ public class PlatformerMovement : MonoBehaviour
         if (groundCheckCollider.IsTouchingLayers(groundLayer))
         {
             return true;
+            animator.SetBool("jump", false);
         }
         else
         {
             return false;
+            animator.SetBool("jump", true);
         }
     }
 
@@ -168,12 +182,14 @@ public class PlatformerMovement : MonoBehaviour
             Debug.Log("Jump!");
             jumpInput = true;
             jumpReleased = false;
+            animator.SetBool("jump", true);
         }
 
         if (context.canceled && controlEnabled)
         {
             jumpReleased = true;
             jumpInput = false;
+            animator.SetBool("jump", false);
         }
     }
 }
