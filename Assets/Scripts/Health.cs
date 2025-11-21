@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
+using UnityEngine.SceneManagement;
 
 // This component can be used together with the UnityEventOnTrigger-component to make a character in your game have health
 // If you don't know how to use UnityEvents, watch this video first: https://play.his.se/media/UnityEvents/0_nq9m8qin
@@ -112,6 +113,7 @@ public class Health : MonoBehaviour
         if (currentHealth <= minHealth)
         {
             OnDie?.Invoke();
+            SceneManager.LoadScene (sceneName:"DeathScene");
             //Add animation-trigger here
         }
     }
